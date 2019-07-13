@@ -102,3 +102,13 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Visual Studio Code
+.vscode/
+
+# SQLite
+*.db*
+*.sqlite*
+
+# Django Media
+media/

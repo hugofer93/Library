@@ -14,8 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+from .settings import DEBUG as debug
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('Library.apps.bibliomap.urls', namespace='bibliomap')),
 ]
+
+if debug:
+    from django.conf.urls.static import static
+
+    from .settings import (
+        MEDIA_URL as mediaUrl,
+        MEDIA_ROOT as mediaRoot,
+    )
+
+    urlpatterns += static(mediaUrl, document_root=mediaRoot)

@@ -1,0 +1,147 @@
+{% extends 'bibliomap/base.html' %}
+
+{% load static %}
+
+{% block titleHead %} {{object.title|title}} {% endblock %}
+
+{% block titleBody %} {{object.title|title}} {% endblock %}
+
+{% block content %}
+    <div class="container-fluid" style="margin: 50px 0;">
+      <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3">
+          <img src="{% static 'assets/img/book.png' %}" alt="calendar" class="img-responsive center-box" style="max-height: 92px;">
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
+          Bienvenido a esta sección, aquí se muestran los detalles del libro.
+        </div>
+      </div>
+      <div class="row">
+        <img src="{{ object.coverPage.url }}" class="img-responsive img-thumbnail center-block" alt="Cinque Terre" style="width:auto;height:300;">
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <form autocomplete="off">
+        <div class="container-flat-form">
+          <div class="title-flat-form title-flat-blue">{{ object.title|title }}</div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+              <legend>
+                <strong>Información detallada</strong>
+              </legend>
+              <br>
+              <div class="form-group">
+                <label for="code">CODIGO:</label>
+                <input type="text"
+                  class="tooltips-general form-control"
+                  id="code"
+                  data-toggle="tooltip"
+                  title="{{ object.code|default:""|upper }}"
+                  value="{{ object.code|default:""|upper }}"
+                  readonly>
+              </div>
+              <div class="form-group">
+                <label for="title">TITULO:</label>
+                <input
+                  type="text"
+                  class="tooltips-general form-control"
+                  id="title"
+                  data-toggle="tooltip"
+                  title="{{ object.title|title }}"
+                  value="{{ object.title|title }}"
+                  readonly>
+              </div>
+              <div class="form-group">
+                <label for="isbn">ISBN:</label>
+                <input type="text"
+                  class="tooltips-general form-control"
+                  id="isbn"
+                  data-toggle="tooltip"
+                  title="{{ object.isbn|default:""|upper }}"
+                  value="{{ object.isbn|default:""|upper }}"
+                  readonly>
+              </div>
+              <div class="form-group">
+                <label for="year">AÑO:</label>
+                <input
+                  type="text"
+                  class="tooltips-general form-control"
+                  id="year"
+                  data-toggle="tooltip"
+                  title="{{ object.year|default:"" }}"
+                  value="{{ object.year|default:"" }}"
+                  readonly>
+              </div>
+              <div class="form-group">
+                <label for="author">AUTOR:</label>
+                {% for author in object.authors.all %}
+                <input
+                  type="text"
+                  class="tooltips-general form-control"
+                  id="author"
+                  data-toggle="tooltip"
+                  title="{{ author|default:""|title }}"
+                  value="{{ author|default:""|title }}"
+                  readonly>
+                
+                {% empty %}
+                <input
+                  type="text"
+                  class="tooltips-general form-control"
+                  id="author"
+                  data-toggle="tooltip"
+                  title="{{ object.authors|default:""|title }}"
+                  value="{{ object.authors|default:""|title }}"
+                  readonly>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                <label for="editorial">EDITORIAL:</label>
+                <input
+                  type="text"
+                  class="tooltips-general form-control"
+                  id="editorial"
+                  data-toggle="tooltip"
+                  title="{{ object.editorial|default:""|title }}"
+                  value="{{ object.editorial|default:""|title }}"
+                  readonly>
+              </div>
+              <div class="form-group">
+                <label for="category">CATEGORIA:</label>
+                <input
+                  type="text"
+                  class="tooltips-general form-control"
+                  id="category"
+                  data-toggle="tooltip"
+                  title="{{ object.category|default:""|title }}"
+                  value="{{ object.category|default:""|title }}"
+                  readonly>
+              </div>
+              <div class="form-group">
+                <label for="section">SECCION: </label>
+                <a href='{{ object.section.location.url }}'>Ver Ubicacion</a>
+                <input
+                  type="text"
+                  class="tooltips-general form-control"
+                  id="section"
+                  data-toggle="tooltip"
+                  title="{{ object.section|default:""|title }}"
+                  value="{{ object.section|default:""|title }}"
+                  readonly>
+              </div>
+              <p class="text-center">
+                {% if object.available %}
+                <a href="{% url 'bibliomap:loanForm' id=object.id %}" style="margin-right: 20px;" class="btn btn-info">PRESTAMO</a>
+                <a href="{% url 'bibliomap:reservationForm' id=object.id %}" style="margin-right: 20px;" class="btn btn-default">RESERVAR</a>
+
+                {% else %}
+                <strong>NO SE ENCUENTRA DISPONIBLE</strong>
+                {% endif %}
+              </p>
+            </div>  
+          </div>        
+        </div>    
+      </form>  
+    </div>            
+{% endblock %}

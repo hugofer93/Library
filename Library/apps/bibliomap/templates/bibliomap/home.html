@@ -1,0 +1,60 @@
+{% extends 'bibliomap/base.html' %}
+
+{% block titleHead %} Inicio {% endblock %}
+
+{% block titleBody %} Inicio {% endblock %}
+
+{% block content %}
+    <section class="full-reset text-center" style="padding: 40px 0;">       
+      
+      <article class="tile" onclick="location.href='{% url "bibliomap:home" %}';">
+        <div class="tile-icon full-reset"><i class="zmdi zmdi-home"></i></div>
+        <div class="tile-name all-tittles" style="width: 90%;">inicio</div>
+        <div class="tile-num full-reset">&nbsp;</div>
+      </article>
+      
+      <article class="tile" onclick="location.href='{% url "bibliomap:book" %}';">
+        <div class="tile-icon full-reset"><i class="zmdi zmdi-book"></i></div>
+        <div class="tile-name all-tittles">libros</div>
+        <div class="tile-num full-reset">{{ book|length }}</div>
+      </article>
+      
+      <article class="tile" onclick="location.href='{% url "bibliomap:category" %}';">
+        <div class="tile-icon full-reset"><i class="zmdi zmdi-bookmark-outline"></i></div>
+        <div class="tile-name all-tittles">categorías</div>
+        <div class="tile-num full-reset">{{ category|length }}</div>
+      </article>
+      
+      <article class="tile" onclick="location.href='{% url "bibliomap:section" %}';">
+        <div class="tile-icon full-reset"><i class="zmdi zmdi-assignment-account"></i></div>
+        <div class="tile-name all-tittles">secciones</div>
+        <div class="tile-num full-reset">{{ section|length }}</div>
+      </article>
+
+      {% if request.user.is_authenticated %}
+      <article class="tile" onclick="location.href='{% url "bibliomap:reservation" %}';">
+        <div class="tile-icon full-reset"><i class="zmdi zmdi-timer"></i></div>
+        <div class="tile-name all-tittles">reservaciones</div>
+        <div class="tile-num full-reset">{{ reservation|length }}</div>
+      </article>
+
+      <article class="tile" onclick="location.href='{% url "bibliomap:loan" %}';">
+        <div class="tile-icon full-reset"><i class="zmdi zmdi-calendar"></i></div>
+        <div class="tile-name all-tittles">Historial de préstamos</div>
+        <div class="tile-num full-reset">{{ loan|length }}</div>
+      </article>
+
+      <article class="tile" onclick="location.href='{% url "bibliomap:loanReturn" %}';">
+        <div class="tile-icon full-reset"><i class="zmdi zmdi-time-restore"></i></div>
+        <div class="tile-name all-tittles" style="width: 90%;">devoluciones pendientes</div>
+        <div class="tile-num full-reset">{{ loanReturn|length }}</div>
+      </article>
+      
+      <article class="tile" onclick="location.href='{% url "bibliomap:logout" %}';">
+        <div class="tile-icon full-reset"><i class="zmdi zmdi-power"></i></div>
+        <div class="tile-name all-tittles" style="width: 90%;">cerrar sesion</div>
+        <div class="tile-num full-reset">&nbsp;</div>
+      </article>
+      {% endif %}
+    </section>
+{% endblock %}

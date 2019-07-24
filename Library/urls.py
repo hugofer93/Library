@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('Library.apps.bibliomap.urls', namespace='bibliomap')),
 ]
 
+
 if debug:
     from django.conf.urls.static import static
 

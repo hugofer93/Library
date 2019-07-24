@@ -128,3 +128,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
+# Login and Logout
+
+LOGIN_URL = 'bibliomap:login'
+
+LOGIN_REDIRECT_URL = 'bibliomap:home'
+
+LOGOUT_URL = 'biliomap:logout'
